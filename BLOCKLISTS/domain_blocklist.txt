@@ -1,0 +1,20 @@
+# SOFTLANDING / TeamPCP — Domain Blocklist
+# Format: Pi-hole / AdGuard / DNS Sinkhole
+# Add to: /etc/pihole/blacklist.txt or AdGuard custom filter
+
+# PRIMARY C2
+t.m-kosche.com
+git-tanstack.com
+filev2.getsession.org
+
+# BULLETPROOF HOSTING
+ghostynetworks.com
+merezha.net
+hostway.ru
+
+# SHELL COMPANY DOMAINS
+ghostynetworks.com
+merezha.net
+
+# SESSION P2P (fallback C2)
+getsession.org
