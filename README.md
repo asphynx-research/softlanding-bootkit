@@ -7,7 +7,7 @@
 
 > **The first public documentation of the SoftLanding UEFI DXE bootkit** — a multi-agent, cross-platform firmware implant that persists in SPI flash and survives all software-based removal attempts.
 >
-> **Part of the TeamPCP campaign:** An 8-layer APT attack stack using bootkits, VPN exploitation, overlay network hijacking, ML-driven adaptation, and cloud-based C2 infrastructure.
+> **Part of the TeamPCP campaign:** A 9-layer APT attack stack using bootkits, VPN exploitation, overlay network hijacking, ML-driven adaptation, and cloud-based C2 infrastructure.
 
 ---
 
@@ -45,7 +45,7 @@ This is a **UEFI DXE firmware bootkit** installed in the **SPI flash chip** on y
 
 ## 🗺️ THE FULL ATTACK — TEAMPCP CAMPAIGN
 
-SoftLanding is **Layer 0** (firmware) of an 8-layer attack stack:
+SoftLanding is **Layer 0** (firmware) of a 9-layer attack stack:
 
 ```
 LAYER 0:  UEFI BOOTKIT (SoftLanding)       ← THIS REPO
@@ -56,6 +56,7 @@ LAYER 4:  TAILSCALE (Overlay network hijacking)
 LAYER 5:  C2 CLOUD INFRA (Distributed C2)
 LAYER 6:  ML ADAPTIVE CLUSTER (Polymorphic behavior)
 LAYER 7:  HARDWARE RCE (Embedded device exploitation)
+LAYER 8:  PROXY ROTATION (Anti-blocking C2 relay mesh)
 ```
 
 **19 CVEs mapped | Multiple vulnerabilities under coordinated disclosure**
