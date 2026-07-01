@@ -144,3 +144,28 @@ Additional findings discovered during this research are under responsible disclo
 
 > *"Trust nothing. Verify everything. The enemy is not in your OS. It is in your firmware."*
 > — ASPHYNX RESEARCH, June 2026
+
+---
+
+## 🚨 ACTIVE THREAT — Pre-Boot Network Activity
+
+**If your network has affected hardware, monitor for VPN tunnel establishment BEFORE the operating system boots.**
+
+### Critical Warning Signs:
+- Outbound VPN connections to unknown IPs with timestamps preceding OS DHCP requests
+- WireGuard/Tailscale interfaces on hosts where they were not configured
+- VPN gateway authentication logs showing anomalies: TLS certificate reuse, password-less IKEv1 sessions
+
+### Immediate Detection:
+```bash
+# Capture network traffic during system boot (requires span port)
+tcpdump -i <span_interface> -w boot_check.pcap &
+# Boot suspect machine, stop capture after OS loads
+tcpdump -r boot_check.pcap 'not arp and not dhcp and not mdns'
+```
+**Any outbound traffic before the OS DHCP renewal = investigate immediately.**
+
+> ⚠️ **Host firewalls, EDR, and OS-level security CANNOT detect this activity.**
+> The communication occurs at the firmware level before any OS security control initializes.
+> **Detection requires EXTERNAL network capture.**
+
