@@ -1,0 +1,94 @@
+title: SoftLanding UEFI Bootkit — VenHw Firmware Entry
+id: asphynx-0001
+status: stable
+level: critical
+description: Detects VenHw boot entry from SoftLanding DXE driver
+author: ASPHYNX
+date: 2026/06/28
+logsource:
+    product: linux
+    service: efibootmgr
+detection:
+    keywords:
+        - 'VenHw(99E275E7-75A0-4B37-A2E6-C5385E6C00CB)'
+    condition: keywords
+---
+title: SoftLanding — EFI Artifacts on Disk
+id: asphynx-0002
+status: stable
+level: critical
+description: Detects mach_kernel or SystemVersion.plist in EFI
+author: ASPHYNX
+date: 2026/06/28
+logsource:
+    product: linux
+    category: file_access
+detection:
+    selection:
+        FileName|contains:
+            - '/boot/efi/mach_kernel'
+            - '/boot/efi/System/Library/CoreServices/SystemVersion.plist'
+    condition: selection
+---
+title: SoftLanding — TeamPCP C2 Network Connection
+id: asphynx-0003
+status: stable
+level: high
+description: Network connections to TeamPCP C2 infrastructure
+author: ASPHYNX
+date: 2026/06/28
+logsource:
+    category: network_connection
+detection:
+    selection:
+        DestinationIp|cidr:
+            - '83.142.209.0/24'
+            - '185.95.159.32/32'
+    condition: selection
+---
+title: SoftLanding — Deadman Switch Token
+id: asphynx-0004
+status: stable
+level: critical
+description: TeamPCP deadman switch token in traffic
+author: ASPHYNX
+date: 2026/06/28
+logsource:
+    category: proxy
+detection:
+    selection:
+        c-useragent|contains: 'IfYouRevokeThisTokenItWillWipeTheComputerOfTheOwner'
+    condition: selection
+---
+title: SoftLanding — Shai-Hulud C2 DNS
+id: asphynx-0005
+status: stable
+level: high
+description: DNS queries to TeamPCP C2 domains
+author: ASPHYNX
+date: 2026/06/28
+logsource:
+    category: dns
+detection:
+    selection:
+        query|contains:
+            - 't.m-kosche.com'
+            - 'git-tanstack.com'
+            - 'filev2.getsession.org'
+    condition: selection
+---
+title: SoftLanding — GPU Mining Detection
+id: asphynx-0006
+status: stable
+level: medium
+description: Stratum mining protocol or XMRig agent
+author: ASPHYNX
+date: 2026/06/28
+logsource:
+    category: proxy
+detection:
+    keywords:
+        - 'stratum'
+        - 'XMRig'
+        - 'cryptonight'
+    condition: keywords
